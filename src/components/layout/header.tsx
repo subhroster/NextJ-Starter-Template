@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Calculator } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -11,8 +14,10 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { AppDrawer } from "@/components/drawer/AppDrawer";
 
 export function Header() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -46,6 +51,18 @@ export function Header() {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
+                  <Link href="/calculators" legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                      aria-current={
+                        pathname === "/calculator" ? "page" : undefined
+                      }
+                    >
+                      Calculators
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
                   <Link href="/about" legacyBehavior passHref>
                     <NavigationMenuLink
                       className={navigationMenuTriggerStyle()}
@@ -72,7 +89,18 @@ export function Header() {
             <div className="flex items-center">
               <ThemeToggle />
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsDrawerOpen(true)}
+            >
+              <Calculator className="h-5 w-5" />
+            </Button>
           </nav>
+          <AppDrawer
+            isOpen={isDrawerOpen}
+            onClose={() => setIsDrawerOpen(false)}
+          />
         </div>
       </div>
     </header>

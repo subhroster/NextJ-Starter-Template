@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/header";
 import { Roboto, Lora } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { siteConfig } from "@/config/site";
-
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -36,6 +36,7 @@ export const metadata: Metadata = {
         alt: siteConfig.name,
       },
     ],
+    suppressHydrationWarning: true,
   },
   twitter: {
     card: "summary_large_image",
@@ -69,25 +70,31 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("Root layout rendering");
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">
-              <div className="container mx-auto space-y-6 px-4 py-8">
-                {children}
-              </div>
-            </main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body
+        className="min-h-screen bg-background"
+        suppressHydrationWarning={true}
+      >
+        <TooltipProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">
+                <div className="container mx-auto space-y-6 px-4 py-8">
+                  {children}
+                </div>
+              </main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </TooltipProvider>
       </body>
     </html>
   );
