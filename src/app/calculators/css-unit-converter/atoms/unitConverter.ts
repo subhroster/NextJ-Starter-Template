@@ -23,3 +23,12 @@ export const remToEmAtom = atomWithStorage<UnitConverterState>('rem_to_em_values
   inputUnit: "rem",
   outputUnit: "em"
 });
+
+export const remToPercentAtom = atomWithStorage<UnitConverterState>('rem_to_percent_values', {
+    input: "1",
+    output: "100%",
+    baseSize: "16",
+    inputUnit: "rem",
+    outputUnit: "%"
+  });
+  

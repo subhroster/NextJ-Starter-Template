@@ -7,6 +7,9 @@ export const calculateConversion = (value: string, baseSize: string, converterTy
       return `${(numValue * baseSizeValue).toFixed(2)}px`;
     case 'remtoem':
       return `${numValue.toFixed(2)}em`;
+      
+      case 'remtopercent':
+        return `${(numValue * baseSizeValue * 6.25).toFixed(2)}%`;
     default:
       return "0";
   }
